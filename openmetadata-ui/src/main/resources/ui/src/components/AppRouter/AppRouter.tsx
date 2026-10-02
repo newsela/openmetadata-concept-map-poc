@@ -17,6 +17,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { useAnalytics } from 'use-analytics';
 import { useShallow } from 'zustand/react/shallow';
 import { ROUTES } from '../../constants/constants';
+import { CM_PREVIEW } from '../../preview/conceptMapPreview';
 import { CustomEventTypes } from '../../generated/analytics/webAnalyticEventData';
 import { useApplicationStore } from '../../hooks/useApplicationStore';
 import useCustomLocation from '../../hooks/useCustomLocation/useCustomLocation';
@@ -96,7 +97,7 @@ const AppRouter = () => {
    * If the user is authenticated, show the AppContainer.
    * If the user is not authenticated, show the UnAuthenticatedAppRouter.
    */
-  if (isApplicationLoading || isAuthenticating) {
+  if (!CM_PREVIEW && (isApplicationLoading || isAuthenticating)) {
     return <Loader fullScreen />;
   }
 
@@ -135,7 +136,7 @@ const AppRouter = () => {
         })}
 
       {/* Default authenticated and unauthenticated routes */}
-      {isAuthenticated ? (
+      {isAuthenticated || CM_PREVIEW ? (
         <Route element={<AppContainer />} path="*" />
       ) : (
         <Route element={<UnAuthenticatedAppRouter />} path="*" />

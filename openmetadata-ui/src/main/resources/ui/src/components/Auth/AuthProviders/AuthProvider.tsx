@@ -78,6 +78,10 @@ import { showErrorToast, showInfoToast } from '../../../utils/ToastUtils';
 import { checkIfUpdateRequired } from '../../../utils/UserDataUtils';
 import { resetWebAnalyticSession } from '../../../utils/WebAnalyticsUtils';
 import Loader from '../../common/Loader/Loader';
+import {
+  CM_PREVIEW,
+  seedConceptMapPreview,
+} from '../../../preview/conceptMapPreview';
 import Auth0Authenticator from '../AppAuthenticators/Auth0Authenticator';
 import BasicAuthAuthenticator from '../AppAuthenticators/BasicAuthAuthenticator';
 import { GenericAuthenticator } from '../AppAuthenticators/GenericAuthenticator';
@@ -660,6 +664,10 @@ export const AuthProvider = ({
         children
       );
 
+    if (CM_PREVIEW) {
+      return childElement;
+    }
+
     // Handling for SAML moved to GenericAuthenticator
     if (
       clientType === ClientType.Confidential ||
@@ -737,6 +745,11 @@ export const AuthProvider = ({
   };
 
   useEffect(() => {
+    if (CM_PREVIEW) {
+      seedConceptMapPreview();
+
+      return;
+    }
     fetchAuthConfig();
     startTokenExpiryTimer();
     initializeAxiosInterceptors();
@@ -763,8 +776,9 @@ export const AuthProvider = ({
   ]);
 
   const isConfigLoading =
-    !authConfig ||
-    (authConfig.provider === AuthProviderEnum.Azure && !msalInstance);
+    !CM_PREVIEW &&
+    (!authConfig ||
+      (authConfig.provider === AuthProviderEnum.Azure && !msalInstance));
 
   return (
     <AuthContext.Provider value={contextValues}>
