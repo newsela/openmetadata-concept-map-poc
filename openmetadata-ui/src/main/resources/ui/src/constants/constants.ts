@@ -152,6 +152,7 @@ export const ROUTES = {
   REPORTS: '/reports',
   EXPLORE: '/explore',
   EXPLORE_WITH_TAB: `/explore/${PLACEHOLDER_ROUTE_TAB}`,
+  CONCEPT_MAP: '/concept-map',
   WORKFLOWS: '/workflows',
   SQL_BUILDER: '/sql-builder',
   SETTINGS: `/settings`,

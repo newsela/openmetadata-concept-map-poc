@@ -38,6 +38,14 @@ const DomainRouter = withSuspenseFallback(
     () => import(/* webpackChunkName: "DomainRouter" */ './DomainRouter')
   )
 );
+const ConceptMapPage = withSuspenseFallback(
+  React.lazy(
+    () =>
+      import(
+        /* webpackChunkName: "ConceptMapPage" */ '../../pages/ConceptMapPage/ConceptMapPage.component'
+      )
+  )
+);
 const DataProductListPage = withSuspenseFallback(
   React.lazy(
     () =>
@@ -332,6 +340,10 @@ const AuthenticatedAppRouter: FunctionComponent = () => {
       <Route
         element={<ExplorePageV1 pageTitle={t('label.explore')} />}
         path={ROUTES.EXPLORE}
+      />
+      <Route
+        element={<ConceptMapPage pageTitle={t('label.concept-map')} />}
+        path={ROUTES.CONCEPT_MAP}
       />
       <Route element={<PlatformLineage />} path={ROUTES.PLATFORM_LINEAGE} />
       <Route
