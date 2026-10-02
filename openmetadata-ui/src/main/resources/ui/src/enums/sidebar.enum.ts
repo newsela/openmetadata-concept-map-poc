@@ -14,6 +14,7 @@
 export enum SidebarItem {
   HOME = 'my-data',
   EXPLORE = 'explore',
+  CONCEPT_MAP = 'concept-map',
   OBSERVABILITY = 'observability',
   DATA_QUALITY = 'data-quality',
   INCIDENT_MANAGER = 'incident-manager',

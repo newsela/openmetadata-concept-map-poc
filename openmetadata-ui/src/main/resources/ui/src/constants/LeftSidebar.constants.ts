@@ -64,6 +64,13 @@ export const SIDEBAR_LIST: Array<LeftSidebarItem> = [
     dataTestId: `app-bar-item-${SidebarItem.EXPLORE}`,
   },
   {
+    key: ROUTES.CONCEPT_MAP,
+    title: 'label.concept-map',
+    redirect_url: ROUTES.CONCEPT_MAP,
+    icon: ExploreIcon,
+    dataTestId: `app-bar-item-${SidebarItem.CONCEPT_MAP}`,
+  },
+  {
     key: ROUTES.PLATFORM_LINEAGE,
     title: 'label.lineage',
     redirect_url: ROUTES.PLATFORM_LINEAGE,

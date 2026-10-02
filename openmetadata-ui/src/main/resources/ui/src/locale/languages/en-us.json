@@ -306,6 +306,8 @@
     "compute-row-count": "Compute Row Count",
     "condition": "Condition",
     "condition-plural": "Conditions",
+    "compare": "Compare",
+    "concept-map": "Concept Map",
     "condition-result": " ({{details}})",
     "config": "Config",
     "configuration": "Configuration",
