@@ -63,8 +63,28 @@
     width: 100%;
   }
 }
+// Equal-height card grid: every card matches the tallest at any viewport width.
+// grid-auto-rows: 1fr makes all rows the same height; the card fills its cell.
+.custom-properties-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 16px;
+}
+.custom-properties-grid-item {
+  min-width: 0;
+  display: flex;
+
+  .custom-property-card {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .custom-property-card {
   scrollbar-width: none;
+  // Show the full value with no collapse/toggle; height is driven by the equal
+  // grid cell above so every card stays the same size. The page scrolls.
 
   &::-webkit-scrollbar {
     display: none;

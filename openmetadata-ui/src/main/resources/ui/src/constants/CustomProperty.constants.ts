@@ -188,12 +188,14 @@ export const AUTO_HEIGHT_TYPES = [
   'entityReferenceList',
   TABLE_TYPE_CUSTOM_PROPERTY,
   'sqlQuery',
+  'markdown',
 ];
 
 export const NO_OVERFLOW_TOGGLE_TYPES = [
   ...PROPERTY_TYPES_WITH_ENTITY_REFERENCE,
   TABLE_TYPE_CUSTOM_PROPERTY,
   'sqlQuery',
+  'markdown',
 ];
 
 export const CUSTOM_PROPERTIES_ICON_MAP = {

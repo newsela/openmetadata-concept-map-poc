@@ -11,7 +11,7 @@
  *  limitations under the License.
  */
 
-import { Col, Divider, Row, Skeleton, Typography } from 'antd';
+import { Divider, Skeleton, Typography } from 'antd';
 import { AxiosError } from 'axios';
 import classNames from 'classnames';
 import { isEmpty, isUndefined, startCase } from 'lodash';
@@ -136,20 +136,12 @@ export const CustomPropertyTable = <T extends ExtentionEntitiesKeys>({
     maxDataCap,
   ]);
 
-  const { dataSource, dataSourceColumns } = useMemo(() => {
+  const dataSource = useMemo(() => {
     const customProperties = entityTypeDetail?.customProperties ?? [];
 
-    const dataSource = Array.isArray(customProperties)
+    return Array.isArray(customProperties)
       ? customProperties.slice(0, maxDataCap)
       : [];
-
-    // Split dataSource into three equal parts
-    const columnCount = 3;
-    const columns = Array.from({ length: columnCount }, (_, i) =>
-      dataSource.filter((_, index) => index % columnCount === i)
-    );
-
-    return { dataSource, dataSourceColumns: columns };
   }, [maxDataCap, entityTypeDetail?.customProperties]);
 
   useEffect(() => {
@@ -296,25 +288,23 @@ export const CustomPropertyTable = <T extends ExtentionEntitiesKeys>({
 
   return (
     <div className="custom-properties-card">
-      <Row data-testid="custom-properties-card" gutter={[16, 16]}>
-        {dataSourceColumns.map((columns, colIndex) => (
-          <Col key={colIndex} span={8}>
-            {columns.map((record) => (
-              <div key={record.name} style={{ marginBottom: '16px' }}>
-                <PropertyValue
-                  extension={extensionObject.extensionObject}
-                  hasEditPermissions={hasEditAccess}
-                  isRenderedInRightPanel={isRenderedInRightPanel}
-                  isVersionView={isVersionView}
-                  property={record}
-                  versionDataKeys={extensionObject.addedKeysList}
-                  onExtensionUpdate={onExtensionUpdate}
-                />
-              </div>
-            ))}
-          </Col>
+      {/* CSS grid with equal-height rows so every card matches the tallest,
+          at any viewport width (min-height alone lets dense cards outgrow). */}
+      <div className="custom-properties-grid" data-testid="custom-properties-card">
+        {dataSource.map((record) => (
+          <div className="custom-properties-grid-item" key={record.name}>
+            <PropertyValue
+              extension={extensionObject.extensionObject}
+              hasEditPermissions={hasEditAccess}
+              isRenderedInRightPanel={isRenderedInRightPanel}
+              isVersionView={isVersionView}
+              property={record}
+              versionDataKeys={extensionObject.addedKeysList}
+              onExtensionUpdate={onExtensionUpdate}
+            />
+          </div>
         ))}
-      </Row>
+      </div>
     </div>
   );
 };
